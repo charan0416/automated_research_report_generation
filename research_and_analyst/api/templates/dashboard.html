@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dashboard | AI Report Generator</title>
+  <link rel="stylesheet" href="/static/css/styles.css" />
+  <style>
+    /* Spinner overlay styling */
+    #spinner-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(3px);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      color: white;
+      font-family: sans-serif;
+    }
+
+    .spinner {
+      border: 6px solid #f3f3f3;
+      border-top: 6px solid #3498db;
+      border-radius: 50%;
+      width: 70px;
+      height: 70px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="dashboard-container">
+    <h2>Welcome, {{ user }} 👋</h2>
+
+    <form id="generateForm" action="/generate_report" method="post">
+      <label for="topic">Enter Report Topic:</label>
+      <input type="text" id="topic" name="topic" required placeholder="e.g. GenAI in Healthcare" />
+      <button type="submit">Generate Report</button>
+    </form>
+  </div>
+
+  <!-- Spinner overlay -->
+  <div id="spinner-overlay">
+    <div class="spinner"></div>
+    <p>Generating your AI report... please wait</p>
+  </div>
+
+  <script>
+    const form = document.getElementById("generateForm");
+    const spinner = document.getElementById("spinner-overlay");
+
+    form.addEventListener("submit", () => {
+      spinner.style.display = "flex";   // show loader
+    });
+  </script>
+</body>
+</html>
